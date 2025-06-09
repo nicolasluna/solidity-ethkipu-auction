@@ -4,7 +4,7 @@ This smart contract implements an auction system where bidders can place bids, a
 
 ### Contract Overview
 The contract allows users to place bids, track the current highest bid, and withdraw funds after the auction has ended. It includes several key features:
-- **Auction Timer**: The auction has a start and end time. If a new bid is placed within the last 10 minutes, the auction time is extended by 1 minute.
+- **Auction Timer**: The auction has a start and end time. If a new bid is placed within the last 10 minutes, the auction time is extended by 10 minutes.
 - **Bidder Information**: Information on bidders is stored in a `mapping` and an array, allowing for efficient access to individual bids and a list of all bidders.
 - **Partial Withdrawals**: Bidders can withdraw a part of their previous bid if it is above the last accepted bid.
 - **Withdraw Funds**: Only the owner can withdraw funds after the auction has ended, transferring the bids (excluding the winner) minus a 2% fee.
@@ -19,7 +19,7 @@ The contract allows users to place bids, track the current highest bid, and with
 - **Logic**:
   - If the sender is a new bidder, their data is added to the `bidders` mapping and the `allBidders` array.
   - If the sender is an existing bidder, the bid amount is updated.
-  - If a new bid is placed close to the end of the auction, the auction time is extended by 1 minute.
+  - If a new bid is placed close to the end of the auction, the auction time is extended by 10 minutes.
 - **Event**: Emits `AcceptedBid(address indexed bidder, uint256 amount)`.
 
 #### 2. **getWinnerBid()**:
@@ -97,8 +97,8 @@ The contract allows users to place bids, track the current highest bid, and with
 ### Auction Parameters
 
 - **startTime**: The start time of the auction, set when the contract is deployed.
-- **endTime**: The end time of the auction, initially set to 1 minute from the start time.
-- **EXTENSION_TIME**: The time added to the auction if a bid is placed within 10 minutes of the auction's end (set to 1 minute).
+- **endTime**: The end time of the auction, initially set to 10 days from the start time.
+- **EXTENSION_TIME**: The time added to the auction if a bid is placed within 10 minutes of the auction's end.
 - **winnerBid**: The current highest bid in the auction.
 - **winnerBidder**: The address of the current highest bidder (winner).
 
